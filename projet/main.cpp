@@ -54,6 +54,7 @@ int fCube[6][4]=
 
 char presse;
 int anglex,angley,x,y,xold,yold;
+int v=50;
 
 /* Prototype des fonctions */
 void affichage();
@@ -125,7 +126,6 @@ void affichage()
 
     //glRotatef(mv,0.0,0.0,1.0);
 
-    int v=50;
     int ecartEntrePied = 3;
     glOrtho(-v, v,-v, v, -v-2,v-2);
     glColor3f(0.5,0.5,0.5);
@@ -420,6 +420,14 @@ void clavier(unsigned char touche,int x,int y)
     case 'D':
         glDisable(GL_DEPTH_TEST);
         glutPostRedisplay();
+        break;
+    case 'Z':
+        v=v+5;
+        glOrtho(-v, v,-v, v, -v-2,v-2);
+        break;
+    case 'z':
+        v=v-5;
+        glOrtho(-v, v,-v, v, -v-2,v-2);
         break;
     case 'q' : /*la touche 'q' permet de quitter le programme */
         exit(0);
