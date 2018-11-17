@@ -11,6 +11,7 @@
 #else
 #include <GL/freeglut.h>   /* Pour les autres systemes */
 #endif
+#include <iostream>
 #include <cstdlib>
 #include <math.h>
 int mv=0;
@@ -129,6 +130,8 @@ void affichage()
     int ecartEntrePied = 3;
     glOrtho(-v, v,-v, v, -v-2,v-2);
     glColor3f(0.5,0.5,0.5);
+
+    glTranslatef(0,0,-25); //Pour centrer le personnage dans la fenêtre
 
     glPushMatrix();
     /*glScalef(2,1,0.5);
@@ -399,6 +402,25 @@ void DrawPartialCylindre(float rHaut, float rbase,float height, float partial, i
 
 void clavier(unsigned char touche,int x,int y)
 {
+
+    int toucheInt = (int)touche; //On récupère le code ASCII
+
+    switch (toucheInt)
+    {
+        case 72:
+            angley=angley+5;
+            break;
+        case 80:
+            angley=angley-5;
+            break;
+        case 75:
+            anglex=anglex+5;
+            break;
+        case 77:
+            anglex=anglex-5;
+            break;
+    }
+
     switch (touche)
     {
     case 'p': /* affichage du carre plein */
@@ -429,9 +451,22 @@ void clavier(unsigned char touche,int x,int y)
         v=v-5;
         glOrtho(-v, v,-v, v, -v-2,v-2);
         break;
+    case 'o':
+        angley=angley+5;
+        break;
+    case 'l':
+        angley=angley-5;
+        break;
+    case 'k':
+        anglex=anglex+5;
+        break;
+    case 'm':
+        anglex=anglex-5;
+        break;
     case 'q' : /*la touche 'q' permet de quitter le programme */
         exit(0);
     }
+
 }
 
 void reshape(int x,int y)
@@ -455,23 +490,6 @@ void mouse(int button, int state,int x,int y)
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
         presse=0; /* le booleen presse passe a 0 (faux) */
 }
-
-void mousemotion(int x,int y)
-{
-    if (presse) /* si le bouton gauche est presse */
-    {
-        /* on modifie les angles de rotation de l'objet
-        en fonction de la position actuelle de la souris et de la derniere
-         position sauvegardee */
-        anglex=anglex+(x-xold);
-        angley=angley+(y-yold);
-        glutPostRedisplay(); /* on demande un rafraichissement de l'affichage */
-    }
-
-    xold=x; /* sauvegarde des valeurs courante de le position de la souris */
-    yold=y;
-}
-
 
 void torus(int numc, int numt)
 {
