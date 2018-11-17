@@ -91,7 +91,6 @@ int main(int argc,char **argv)
     glutKeyboardFunc(clavier);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
-    glutMotionFunc(mousemotion);
     glutIdleFunc(idle);
 
     /* Entree dans la boucle principale glut */
